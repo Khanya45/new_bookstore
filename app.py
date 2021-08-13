@@ -6,12 +6,12 @@ from flask import redirect
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
 app.debug = True
-CORS(app)
+# CORS(app)
 
 
 def create_tables():
@@ -294,6 +294,7 @@ def add_new_books():
 
 # DISPLAYING ALL BOOKS
 @app.route('/get-books/', methods=["GET"])
+@cross_origin()
 def get_books():
     response = {}
     with sqlite3.connect("dbHabituate.db") as conn:
