@@ -84,6 +84,7 @@ def enter_new_books():
 
 # CREATING API OF BOOK DETAILS
 @app.route('/booklist-api/', methods=['GET'])
+@cross_origin()
 def add_books_api():
      with sqlite3.connect('dbHabituate.db') as conn:
             cur = conn.cursor()
@@ -160,6 +161,7 @@ jwt = JWT(app, authenticate, identity)
 
 @app.route('/protected')
 # @jwt_required()
+@cross_origin()
 def protected():
     return '%s' % current_identity
 
@@ -186,6 +188,7 @@ class clsUser:
 
 
 @app.route('/user-registration/', methods=["POST"])
+@cross_origin()
 def user_register():
     response = {}
     if request.method == "POST":
@@ -225,6 +228,7 @@ class clsCustomer:
 
 # ADDING THE NEW customer ON THE TABLE
 @app.route('/customer-registration/', methods=["POST"])
+@cross_origin()
 # @jwt_required()
 def customer_registration():
     response = {}
@@ -264,6 +268,7 @@ class clsBooks:
 
 # ADDING NEW BOOKS ON THE TABLE
 @app.route('/add-new-books/', methods=["POST"])
+@cross_origin()
 # @jwt_required()
 def add_new_books():
     response = {}
@@ -308,6 +313,7 @@ def get_books():
 
 # DELETE A BOOK
 @app.route("/delete-post/<id>/")
+@cross_origin()
 # @jwt_required()
 def delete_book(id):
     response = {}
@@ -322,6 +328,7 @@ def delete_book(id):
 
 # UPDATE A BOOK ROW
 @app.route('/edit-book/<isbn>/', methods=["PUT"])
+@cross_origin()
 # @jwt_required()
 def edit_book(isbn):
     response = {}
@@ -420,6 +427,7 @@ def edit_book(isbn):
 
 # DISPLAYING ALL USERS
 @app.route('/get-user/<int:id>/', methods=["GET"])
+@cross_origin()
 # @jwt_required()
 def get_user(id):
     response = {}
@@ -437,6 +445,7 @@ def get_user(id):
 
 # DISPLAYING ALL USERS
 @app.route('/filter-books/<genre>/')
+@cross_origin()
 def filter_books(genre):
     response = {}
 
@@ -451,6 +460,7 @@ def filter_books(genre):
 
 
 @app.route('/sort-books/<sort_by>/')
+@cross_origin()
 def sort_books(sort_by):
     response = {}
 
@@ -482,6 +492,7 @@ def sort_books(sort_by):
 
 # DELETE A BOOK
 @app.route("/delete-post/<id>/")
+@cross_origin()
 # @jwt_required()
 def delete_books(id):
     response = {}
@@ -495,6 +506,7 @@ def delete_books(id):
 
 
 @app.route("/delete-user/<id>/")
+@cross_origin()
 # @jwt_required()
 def delete_user(id):
     response = {}
@@ -515,6 +527,7 @@ def delete_user(id):
 
 # TOTAL PRICE OF A CUSTOMER
 @app.route("/price-calculation/<int:customer_id>/")
+@cross_origin()
 def total_price(customer_id):
     with sqlite3.connect("dbHabituate.db") as conn:
         cursor = conn.cursor()
@@ -526,6 +539,7 @@ def total_price(customer_id):
 
 # OVERALL PRICE OF THE BOOKSTORE
 @app.route("/bookstore_profit/")
+@cross_origin()
 def bookstore_income():
     with sqlite3.connect("dbHabituate.db") as conn:
         cursor = conn.cursor()
@@ -536,6 +550,7 @@ def bookstore_income():
 
 # DISPLAYING ALL BOOKS
 @app.route('/get-customers/', methods=["GET"])
+@cross_origin()
 # @jwt_required()
 def get_customers():
     response = {}
@@ -550,6 +565,7 @@ def get_customers():
 
 # DISPLAYING ALL transactions
 @app.route('/get-all-transactions/', methods=["GET"])
+@cross_origin()
 # @jwt_required()
 def get_transactions():
     response = {}
@@ -564,6 +580,7 @@ def get_transactions():
 
 # IMAGE HOSTING
 @app.route('/image-hosting/')
+@cross_origin()
 def image_hosting():
     with sqlite3.connect("dbHabituate.db") as conn:
         cursor = conn.cursor()
@@ -576,6 +593,7 @@ def image_hosting():
 
 #  =================SENDING EMAIL TO THE ADMIN============
 @app.route('/send-email/', methods=['POST'])
+@cross_origin()
 def send_email():
     response = {}
     if request.method == "POST":
