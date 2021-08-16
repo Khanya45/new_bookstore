@@ -644,7 +644,7 @@ def edit_user(id):
                         cursor = conn.cursor()
                         cursor.execute("UPDATE tblUser SET name =? WHERE user_id=?", ([put_data["name"]], [id]))
                         conn.commit()
-                        response['message'] = "name updated was successfully"
+                        response['message'] = "successful"
                         response['status_code'] = 200
                 else:
                     response['message'] = "Invalid characters"
@@ -659,7 +659,7 @@ def edit_user(id):
                         cursor.execute("UPDATE tblUser SET surname =? WHERE user_id=?", (put_data["surname"], id))
                         conn.commit()
 
-                        response["content"] = "surname updated successfully"
+                        response["content"] = "successful"
                         response["status_code"] = 200
                 else:
                     response['message'] = "Invalid characters"
@@ -672,7 +672,7 @@ def edit_user(id):
                         cursor = conn.cursor()
                         cursor.execute("UPDATE tblUser SET username =? WHERE user_id=?", (put_data["username"], id))
                         conn.commit()
-                        response['message'] = " username updated was successfully"
+                        response['message'] = " successful"
                         response['status_code'] = 200
                 else:
                     response['message'] = "Invalid characters"
@@ -687,7 +687,7 @@ def edit_user(id):
                         cursor.execute("UPDATE tblUser SET password =? WHERE user_id=?", (put_data["password"], id))
                         conn.commit()
 
-                        response["content"] = "password updated successfully"
+                        response["content"] = "successful"
                         response["status_code"] = 200
                 else:
                     response['message'] = "Invalid characters"
