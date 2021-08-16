@@ -625,20 +625,94 @@ def send_email():
         return response
 
 
-# with sqlite3.connect("dbHabituate.db") as conn:
-#         cursor = conn.cursor()
-#         cursor.execute("SELECT * FROM tblHistory")
-#         id = cursor.fetchone()
-#         print(id)
+# UPDATE A BOOK ROW
+@app.route('/edit-user/<id>/', methods=["PUT"])
+@cross_origin()
+# @jwt_required()
+def edit_user(id):
+    response = {}
 
-#
-# with sqlite3.connect('dbHabituate.db') as conn:
-#             cur = conn.cursor()
-#             cur.execute('UPDATE tblHistory SET total_price=(quantity * (SELECT total_price FROM tblBooks WHERE tblBooks.isbn = tblHistory.isbn)) WHERE customer_id=3')
-#             conn.commit()
-#             cur.execute('SELECT * FROM tblHistory')
-#             book_details = cur.fetchall()
-#             print(book_details)
+    if request.method == "PUT":
+        with sqlite3.connect('dbHabituate.db') as conn:
+            incoming_data = dict(request.json)
+            put_data = {}
+            # ===================== UPDATING NAME =================================
+            if incoming_data.get("name") is not None:
+                put_data["name"] = incoming_data.get("name")
+                if is_number(put_data["name"]) == False:
+                    with sqlite3.connect('dbHabituate.db') as conn:
+                        cursor = conn.cursor()
+                        cursor.execute("UPDATE tblUser SET name =? WHERE user_id=?", ([put_data["name"]], [id]))
+                        conn.commit()
+                        response['message'] = "name updated was successfully"
+                        response['status_code'] = 200
+                else:
+                    response['message'] = "Invalid characters"
+                    response['status_code'] = 400
+            # ===================== UPDATING SURNAME =================================
+            if incoming_data.get("surname") is not None:
+                put_data['surname'] = incoming_data.get('surname')
+                if is_string(put_data["surname"]) == True or length(put_data["surname"]) == True:
+
+                    with sqlite3.connect('dbHabituate.db') as conn:
+                        cursor = conn.cursor()
+                        cursor.execute("UPDATE tblUser SET surname =? WHERE user_id=?", (put_data["surname"], id))
+                        conn.commit()
+
+                        response["content"] = "surname updated successfully"
+                        response["status_code"] = 200
+                else:
+                    response['message'] = "Invalid characters"
+                    response['status_code'] = 400
+            # ===================== UPDATING USERNAME =================================
+            if incoming_data.get("username") is not None:
+                put_data["username"] = incoming_data.get("username")
+                if length(put_data["username"]) == True:
+                    with sqlite3.connect('dbHabituate.db') as conn:
+                        cursor = conn.cursor()
+                        cursor.execute("UPDATE tblUser SET username =? WHERE user_id=?", (put_data["username"], id))
+                        conn.commit()
+                        response['message'] = " username updated was successfully"
+                        response['status_code'] = 200
+                else:
+                    response['message'] = "Invalid characters"
+                    response['status_code'] = 400
+            # ===================== UPDATING PASSWORD =================================
+            if incoming_data.get("password") is not None:
+                put_data['password'] = incoming_data.get('password')
+                if length(put_data["password"]) == True:
+
+                    with sqlite3.connect('dbHabituate.db') as conn:
+                        cursor = conn.cursor()
+                        cursor.execute("UPDATE tblUser SET password =? WHERE user_id=?", (put_data["password"], id))
+                        conn.commit()
+
+                        response["content"] = "password updated successfully"
+                        response["status_code"] = 200
+                else:
+                    response['message'] = "Invalid characters"
+                    response['status_code'] = 400
+
+    return response
+
+
+# DISPLAYING ALL USERS
+@app.route('/get-users/<int:id>/', methods=["GET"])
+@cross_origin()
+# @jwt_required()
+def get_user(id):
+    response = {}
+
+    with sqlite3.connect("dbHabituate.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM tblUser WHERE user_id=" + str(id))
+
+        response["status_code"] = 200
+        response["description"] = "Blog post retrieved successfully"
+        response["data"] = cursor.fetchone()
+
+    return jsonify(response)
+
 
 if __name__ == "__main__":
     app.run()
