@@ -11,7 +11,7 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 app.debug = True
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 def create_tables():
