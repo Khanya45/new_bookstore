@@ -696,22 +696,17 @@ def edit_user(id):
     return response
 
 
-# DISPLAYING ALL USERS
-@app.route('/get-users/<int:id>/', methods=["GET"])
-@cross_origin()
-# @jwt_required()
-def get_user(id):
+# DISPLAYING ALL Users
+@app.route('/get-users/', methods=["GET"])
+def get_users():
     response = {}
-
     with sqlite3.connect("dbHabituate.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM tblUser WHERE user_id=" + str(id))
-
-        response["status_code"] = 200
-        response["description"] = "Blog post retrieved successfully"
-        response["data"] = cursor.fetchone()
-
-    return jsonify(response)
+        cursor.execute("SELECT * FROM tblUser")
+        posts = cursor.fetchall()
+    response['status_code'] = 200
+    response['data'] = posts
+    return response
 
 
 if __name__ == "__main__":
