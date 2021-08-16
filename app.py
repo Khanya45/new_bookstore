@@ -698,6 +698,7 @@ def edit_user(id):
 
 # DISPLAYING ALL Users
 @app.route('/get-users/', methods=["GET"])
+@cross_origin()
 def get_users():
     response = {}
     with sqlite3.connect("dbHabituate.db") as conn:
