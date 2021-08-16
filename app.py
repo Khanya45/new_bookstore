@@ -327,13 +327,13 @@ def delete_book(id):
 
 
 # UPDATE A BOOK ROW
-@app.route('/edit-book/<isbn>/', methods=["PUT"])
+@app.route('/edit-book/<isbn>/', methods=["POST"])
 @cross_origin()
 # @jwt_required()
 def edit_book(isbn):
     response = {}
 
-    if request.method == "PUT":
+    if request.method == "POST":
         with sqlite3.connect('dbHabituate.db') as conn:
             incoming_data = dict(request.json)
             put_data = {}
