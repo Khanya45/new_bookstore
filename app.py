@@ -627,7 +627,7 @@ def send_email():
 
 # UPDATE A BOOK ROW
 @app.route('/edit-user/<id>/', methods=["PUT"])
-@cross_origin()
+# @cross_origin()
 # @jwt_required()
 def edit_user(id):
     response = {}
