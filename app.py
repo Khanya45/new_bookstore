@@ -343,8 +343,8 @@ def edit_book(isbn):
                 if is_number(put_data["title"]) == False:
                     with sqlite3.connect('dbHabituate.db') as conn:
                         cursor = conn.cursor()
-                        cursor.execute("UPDATE tblBooks SET title =? WHERE isbn=?", ([put_data["title"]], [isbn]))
-                        cursor.execute("UPDATE tblHistory SET book_Title =? WHERE isbn=?", ([put_data["title"]], [isbn]))
+                        cursor.execute("UPDATE tblBooks SET title =? WHERE isbn=?", (put_data["title"], isbn))
+                        cursor.execute("UPDATE tblHistory SET book_Title =? WHERE isbn=?", (put_data["title"], isbn))
                         conn.commit()
                         response['message'] = "Update was successfully"
                         response['status_code'] = 200
