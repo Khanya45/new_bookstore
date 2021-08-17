@@ -642,7 +642,7 @@ def edit_user(id):
                 if is_number(put_data["name"]) == False:
                     with sqlite3.connect('dbHabituate.db') as conn:
                         cursor = conn.cursor()
-                        cursor.execute("UPDATE tblUser SET name =? WHERE user_id=?", ([put_data["name"]], [id]))
+                        cursor.execute("UPDATE tblUser SET name =? WHERE user_id=?", (put_data["name"], id))
                         conn.commit()
                         response['message'] = "successful"
                         response['status_code'] = 200
